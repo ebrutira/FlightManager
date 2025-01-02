@@ -1,0 +1,78 @@
+-- 1. Veritabanı oluştur
+CREATE DATABASE [Flight Schedules];
+GO
+
+-- 2. Veritabanını kullan
+USE [Flight Schedules];
+GO
+
+-- 3. Crew_Data tablosunu oluştur
+CREATE TABLE Crew_Data (
+    crew_id INT PRIMARY KEY,        -- Primary key olarak benzersiz 5 haneli bir ID
+    name NVARCHAR(100),             -- Görevlinin adı ve soyadı
+    role NVARCHAR(50),              -- Görevi (Captain Pilot, Copilot, Cabin Crew)
+    max_monthly_hours INT,          -- Maksimum aylık çalışma saati
+    current_work_hours INT,         -- Şu anki çalışma saati
+    duty_status INT                -- Görev durumu (0: İşe başlamadı, 1: İşe başladı, 2: İşe devam ediyor, 3: İşi bitirdi)
+);
+GO
+
+-- 4. Benzersiz verilerle tabloya veri ekle
+INSERT INTO Crew_Data (crew_id, name, role, max_monthly_hours, current_work_hours, duty_status) 
+VALUES
+-- Captain Pilots
+(37885, 'Linda Taylor', 'Captain Pilot', 90, 0, 0),
+(83613, 'John Brown', 'Captain Pilot', 90, 0, 0),
+(32987, 'Linda Smith', 'Captain Pilot', 90, 0, 0),
+(36841, 'Chris Smith', 'Captain Pilot', 90, 0, 0),
+(43134, 'Robert Jackson', 'Captain Pilot', 90, 0, 0),
+(51234, 'Alice White', 'Captain Pilot', 90, 0, 0),
+(68512, 'Michael Anderson', 'Captain Pilot', 90, 0, 0),
+(79843, 'Sarah Harris', 'Captain Pilot', 90, 0, 0),
+(84532, 'Emily Brown', 'Captain Pilot', 90, 0, 0),
+
+-- Copilots
+(47211, 'Alice White', 'Copilot', 90, 0, 0),
+(58432, 'Sarah Johnson', 'Copilot', 90, 0, 0),
+(69873, 'Robert Taylor', 'Copilot', 90, 0, 0),
+(75684, 'Jane Martin', 'Copilot', 90, 0, 0),
+(81235, 'Chris Thomas', 'Copilot', 90, 0, 0),
+(87321, 'Alex Jackson', 'Copilot', 90, 0, 0),
+(93241, 'John Smith', 'Copilot', 90, 0, 0),
+(97852, 'Emily Taylor', 'Copilot', 90, 0, 0),
+(99312, 'Linda Brown', 'Copilot', 90, 0, 0),
+
+-- Cabin Crew
+(78452, 'Michael Harris', 'Cabin Crew', 90, 0, 0),
+(89231, 'Jane Anderson', 'Cabin Crew', 90, 0, 0),
+(92345, 'Chris Johnson', 'Cabin Crew', 90, 0, 0),
+(81236, 'Robert White', 'Cabin Crew', 90, 0, 0),
+(78123, 'Alice Taylor', 'Cabin Crew', 90, 0, 0),
+(79842, 'Sarah Jackson', 'Cabin Crew', 90, 0, 0),
+(78412, 'Alex Harris', 'Cabin Crew', 90, 0, 0),
+(81523, 'John Anderson', 'Cabin Crew', 90, 0, 0),
+(82345, 'Linda Martin', 'Cabin Crew', 90, 0, 0),
+(89934, 'Emily Brown', 'Cabin Crew', 90, 0, 0),
+(81247, 'Jane White', 'Cabin Crew', 90, 0, 0),
+(78195, 'Chris Taylor', 'Cabin Crew', 90, 0, 0),
+(79231, 'Michael Smith', 'Cabin Crew', 90, 0, 0),
+(80012, 'Alex Johnson', 'Cabin Crew', 90, 0, 0),
+(83451, 'Robert Martin', 'Cabin Crew', 90, 0, 0),
+(89012, 'Sarah Thomas', 'Cabin Crew', 90, 0, 0),
+(82001, 'Linda Jackson', 'Cabin Crew', 90, 0, 0),
+(81423, 'Alice Harris', 'Cabin Crew', 90, 0, 0),
+(87892, 'Chris Anderson', 'Cabin Crew', 90, 0, 0),
+(89451, 'Michael Taylor', 'Cabin Crew', 90, 0, 0),
+(84512, 'Emily Johnson', 'Cabin Crew', 90, 0, 0),
+(85123, 'John Martin', 'Cabin Crew', 90, 0, 0),
+(86431, 'Alice Brown', 'Cabin Crew', 90, 0, 0),
+(87234, 'Chris White', 'Cabin Crew', 90, 0, 0),
+(85145, 'Michael Jackson', 'Cabin Crew', 90, 0, 0),
+(88841, 'Linda Smith', 'Cabin Crew', 90, 0, 0),
+(87521, 'John Johnson', 'Cabin Crew', 90, 0, 0),
+(89034, 'Jane Thomas', 'Cabin Crew', 90, 0, 0),
+(82101, 'Robert Taylor', 'Cabin Crew', 90, 0, 0),
+(85412, 'Emily Harris', 'Cabin Crew', 90, 0, 0),
+(81238, 'Alice White', 'Cabin Crew', 90, 0, 0),
+(83321, 'Sarah Johnson', 'Cabin Crew', 90, 0, 0);
+GO

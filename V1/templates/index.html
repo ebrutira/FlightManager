@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uçuş Mürettebat Atama Sistemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvnM1wbt1wbPOUOB8tvpmfDCIyoNmKz2Y"></script>
+    <style>
+        	body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(155deg, #0D1D59, #371269);
+            color: #f4f4f9;
+        }
+        h2 {
+             color: #f4f4f9;
+        }
+        h4 {
+            color: #f4f4f9;
+        }
+        th{
+            color: #f4f4f9;
+        }
+        thead{
+            color: #f4f4f9;
+        }
+        tbody{
+            color: #f4f4f9;
+        }
+        h5{
+            color: #484854;
+        }
+        .modal-content {
+    color: #484854; 
+        }
+        .btn-primary {
+    color: #f4f4f9;
+    background-color: #0F236C;
+    border: 2px solid #0D1D59;
+        }
+        .btn-secondary {
+    color: #484854;
+    background-color: #f4f4f9;
+    border: 2px solid #D0CCD0;
+        }
+        .btn-primary :hover{
+    color: #f4f4f9;
+    background-color: #0D1D59;
+    border: 2px solid #0D1D59;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            border: 0px solid #D0CCD0;
+            border-radius: 5px;
+            display: none;
+            color: #f4f4f9;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Sol taraf - Harita ve Form -->
+            <div class="col-md-6">
+                <h2 class="mb-4">Uçuş Mürettebat Atama</h2>
+                
+                <div id="map"></div>
+
+                <form id="flightForm">
+                    <div class="mb-3">
+                        <label for="departure" class="form-label">Kalkış Noktası</label>
+                        <select class="form-select" id="departure" required>
+                            <option value="">Seçiniz...</option>
+                            <!-- Türkiye Havalimanları -->
+                            <optgroup label="Türkiye">
+                                <option value="SAW" data-lat="40.898" data-lng="29.309">Sabiha Gökçen Havalimanı (SAW)</option>
+                                <option value="IST" data-lat="41.262" data-lng="28.741">İstanbul Havalimanı (IST)</option>
+                                <option value="ESB" data-lat="40.128" data-lng="32.995">Ankara Esenboğa (ESB)</option>
+                                <option value="AYT" data-lat="36.899" data-lng="30.800">Antalya Havalimanı (AYT)</option>
+                                <option value="ADB" data-lat="38.292" data-lng="27.157">İzmir Adnan Menderes (ADB)</option>
+                                <option value="DLM" data-lat="36.713" data-lng="28.792">Dalaman Havalimanı (DLM)</option>
+                                <option value="BJV" data-lat="37.250" data-lng="27.667">Bodrum Milas (BJV)</option>
+                                <option value="TZX" data-lat="40.995" data-lng="39.789">Trabzon Havalimanı (TZX)</option>
+                            </optgroup>
+                            
+                            <optgroup label="Almanya">
+                                <option value="DUS" data-lat="51.289" data-lng="6.766">Düsseldorf Airport (DUS)</option>
+                                <option value="FRA" data-lat="50.033" data-lng="8.570">Frankfurt Airport (FRA)</option>
+                                <option value="MUC" data-lat="48.353" data-lng="11.786">Münih Havalimanı (MUC)</option>
+                                <option value="TXL" data-lat="52.559" data-lng="13.287">Berlin Brandenburg (BER)</option>
+                                <option value="HAM" data-lat="53.630" data-lng="9.988">Hamburg Havalimanı (HAM)</option>
+                            </optgroup>
+                            
+                            <!-- Fransa -->
+                            <optgroup label="Fransa">
+                                <option value="CDG" data-lat="49.009" data-lng="2.547">Paris Charles de Gaulle (CDG)</option>
+                                <option value="ORY" data-lat="48.725" data-lng="2.359">Paris Orly (ORY)</option>
+                                <option value="NCE" data-lat="43.658" data-lng="7.215">Nice Côte d'Azur (NCE)</option>
+                                <option value="LYS" data-lat="45.726" data-lng="5.091">Lyon Saint-Exupéry (LYS)</option>
+                            </optgroup>
+
+                            <!-- İngiltere -->
+                            <optgroup label="İngiltere">
+                                <option value="LHR" data-lat="51.470" data-lng="-0.454">London Heathrow (LHR)</option>
+                                <option value="LGW" data-lat="51.148" data-lng="-0.190">London Gatwick (LGW)</option>
+                                <option value="MAN" data-lat="53.354" data-lng="-2.275">Manchester Airport (MAN)</option>
+                                <option value="STN" data-lat="51.885" data-lng="0.235">London Stansted (STN)</option>
+                            </optgroup>
+
+                            <!-- İtalya -->
+                            <optgroup label="İtalya">
+                                <option value="FCO" data-lat="41.804" data-lng="12.251">Roma Fiumicino (FCO)</option>
+                                <option value="MXP" data-lat="45.630" data-lng="8.723">Milano Malpensa (MXP)</option>
+                                <option value="VCE" data-lat="45.505" data-lng="12.352">Venedik Marco Polo (VCE)</option>
+                            </optgroup>
+
+                            <!-- İspanya -->
+                            <optgroup label="İspanya">
+                                <option value="MAD" data-lat="40.472" data-lng="-3.560">Madrid Barajas (MAD)</option>
+                                <option value="BCN" data-lat="41.297" data-lng="2.078">Barselona El Prat (BCN)</option>
+                                <option value="PMI" data-lat="39.551" data-lng="2.738">Palma de Mallorca (PMI)</option>
+                            </optgroup>
+
+                            <!-- Hollanda -->
+                            <optgroup label="Hollanda">
+                                <option value="AMS" data-lat="52.308" data-lng="4.764">Amsterdam Schiphol (AMS)</option>
+                                <option value="RTM" data-lat="51.957" data-lng="4.437">Rotterdam The Hague (RTM)</option>
+                            </optgroup>
+
+                            <!-- Belçika -->
+                            <optgroup label="Belçika">
+                                <option value="BRU" data-lat="50.901" data-lng="4.484">Brüksel Havalimanı (BRU)</option>
+                                <option value="CRL" data-lat="50.459" data-lng="4.454">Brüksel Güney Charleroi (CRL)</option>
+                            </optgroup>
+
+                            <!-- İsviçre -->
+                            <optgroup label="İsviçre">
+                                <option value="ZRH" data-lat="47.458" data-lng="8.548">Zürih Havalimanı (ZRH)</option>
+                                <option value="GVA" data-lat="46.238" data-lng="6.109">Cenevre Havalimanı (GVA)</option>
+                            </optgroup>
+
+                            <!-- Avusturya -->
+                            <optgroup label="Avusturya">
+                                <option value="VIE" data-lat="48.110" data-lng="16.570">Viyana Havalimanı (VIE)</option>
+                                <option value="SZG" data-lat="47.793" data-lng="13.004">Salzburg Havalimanı (SZG)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="arrival" class="form-label">Varış Noktası</label>
+                        <select class="form-select" id="arrival" required>
+                            <option value="">Seçiniz...</option>
+                            <optgroup label="Türkiye"></optgroup>
+                                <option value="SAW" data-lat="40.898" data-lng="29.309">Sabiha Gökçen Havalimanı (SAW)</option>
+                                <option value="IST" data-lat="41.262" data-lng="28.741">İstanbul Havalimanı (IST)</option>
+                                <option value="ESB" data-lat="40.128" data-lng="32.995">Ankara Esenboğa (ESB)</option>
+                                <option value="AYT" data-lat="36.899" data-lng="30.800">Antalya Havalimanı (AYT)</option>
+                                <option value="ADB" data-lat="38.292" data-lng="27.157">İzmir Adnan Menderes (ADB)</option>
+                                <option value="DLM" data-lat="36.713" data-lng="28.792">Dalaman Havalimanı (DLM)</option>
+                                <option value="BJV" data-lat="37.250" data-lng="27.667">Bodrum Milas (BJV)</option>
+                                <option value="TZX" data-lat="40.995" data-lng="39.789">Trabzon Havalimanı (TZX)</option>
+                            </optgroup>
+                            <!-- Almanya -->
+                            <optgroup label="Almanya">
+                                <option value="DUS" data-lat="51.289" data-lng="6.766">Düsseldorf Airport (DUS)</option>
+                                <option value="FRA" data-lat="50.033" data-lng="8.570">Frankfurt Airport (FRA)</option>
+                                <option value="MUC" data-lat="48.353" data-lng="11.786">Münih Havalimanı (MUC)</option>
+                                <option value="TXL" data-lat="52.559" data-lng="13.287">Berlin Brandenburg (BER)</option>
+                                <option value="HAM" data-lat="53.630" data-lng="9.988">Hamburg Havalimanı (HAM)</option>
+                            </optgroup>
+                            
+                            <!-- Fransa -->
+                            <optgroup label="Fransa">
+                                <option value="CDG" data-lat="49.009" data-lng="2.547">Paris Charles de Gaulle (CDG)</option>
+                                <option value="ORY" data-lat="48.725" data-lng="2.359">Paris Orly (ORY)</option>
+                                <option value="NCE" data-lat="43.658" data-lng="7.215">Nice Côte d'Azur (NCE)</option>
+                                <option value="LYS" data-lat="45.726" data-lng="5.091">Lyon Saint-Exupéry (LYS)</option>
+                            </optgroup>
+
+                            <!-- İngiltere -->
+                            <optgroup label="İngiltere">
+                                <option value="LHR" data-lat="51.470" data-lng="-0.454">London Heathrow (LHR)</option>
+                                <option value="LGW" data-lat="51.148" data-lng="-0.190">London Gatwick (LGW)</option>
+                                <option value="MAN" data-lat="53.354" data-lng="-2.275">Manchester Airport (MAN)</option>
+                                <option value="STN" data-lat="51.885" data-lng="0.235">London Stansted (STN)</option>
+                            </optgroup>
+
+                            <!-- İtalya -->
+                            <optgroup label="İtalya">
+                                <option value="FCO" data-lat="41.804" data-lng="12.251">Roma Fiumicino (FCO)</option>
+                                <option value="MXP" data-lat="45.630" data-lng="8.723">Milano Malpensa (MXP)</option>
+                                <option value="VCE" data-lat="45.505" data-lng="12.352">Venedik Marco Polo (VCE)</option>
+                            </optgroup>
+
+                            <!-- İspanya -->
+                            <optgroup label="İspanya">
+                                <option value="MAD" data-lat="40.472" data-lng="-3.560">Madrid Barajas (MAD)</option>
+                                <option value="BCN" data-lat="41.297" data-lng="2.078">Barselona El Prat (BCN)</option>
+                                <option value="PMI" data-lat="39.551" data-lng="2.738">Palma de Mallorca (PMI)</option>
+                            </optgroup>
+
+                            <!-- Hollanda -->
+                            <optgroup label="Hollanda">
+                                <option value="AMS" data-lat="52.308" data-lng="4.764">Amsterdam Schiphol (AMS)</option>
+                                <option value="RTM" data-lat="51.957" data-lng="4.437">Rotterdam The Hague (RTM)</option>
+                            </optgroup>
+
+                            <!-- Belçika -->
+                            <optgroup label="Belçika">
+                                <option value="BRU" data-lat="50.901" data-lng="4.484">Brüksel Havalimanı (BRU)</option>
+                                <option value="CRL" data-lat="50.459" data-lng="4.454">Brüksel Güney Charleroi (CRL)</option>
+                            </optgroup>
+
+                            <!-- İsviçre -->
+                            <optgroup label="İsviçre">
+                                <option value="ZRH" data-lat="47.458" data-lng="8.548">Zürih Havalimanı (ZRH)</option>
+                                <option value="GVA" data-lat="46.238" data-lng="6.109">Cenevre Havalimanı (GVA)</option>
+                            </optgroup>
+
+                            <!-- Avusturya -->
+                            <optgroup label="Avusturya">
+                                <option value="VIE" data-lat="48.110" data-lng="16.570">Viyana Havalimanı (VIE)</option>
+                                <option value="SZG" data-lat="47.793" data-lng="13.004">Salzburg Havalimanı (SZG)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Mürettebat Ata</button>
+                    <button type="button" id="resetBtn" class="btn btn-secondary">Sıfırla</button>
+                </form>
+            </div>
+
+            <!-- Sağ taraf - Sonuçlar -->
+            <div class="col-md-6">
+                <div id="resultBox" class="result-box">
+                    <h3>Atama Sonuçları</h3>
+                    <div class="mb-3">
+                        <strong>Uçuş:</strong> <span id="flightRoute"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Uçak ID:</strong> <span id="planeId"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Uçuş Tarihi:</strong> <span id="flightDate"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Kalkış Saati:</strong> <span id="departureTime"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Varış Saati:</strong> <span id="arrivalTime"></span>
+                    </div>            
+                    <div class="mb-3">
+                        <strong>Uçuş Süresi:</strong> <span id="flightHours"></span> saat
+                    </div>        
+                    <div class="mb-3">
+                        <strong>Mesafe:</strong> <span id="distance"></span> km
+                    </div>
+                    <div class="mb-3">
+                        <strong>Yakıt Tüketimi:</strong> <span id="fuelConsumption"></span> litre
+                    </div>
+                    <div class="mb-3">
+                        <strong>Yakıt Maliyeti:</strong> $<span id="fuelCost"></span>
+                    </div>
+                    <div class="mb-3">
+                        <h4>Mürettebat:</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>İsim</th>
+                                    <th>Rol</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crewList">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Başarılı!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Mürettebat ataması başarıyla tamamlandı.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tamam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let markers = [];
+        let flightPath = null;
+
+        // Harita başlatma
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: { lat: 45.0, lng: 15.0 },
+                mapTypeId: 'terrain'
+            });
+        }
+
+        // Marker'ları temizle
+        function clearMarkers() {
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+            if (flightPath) {
+                flightPath.setMap(null);
+                flightPath = null;
+            }
+        }
+
+        // Harita üzerinde güzergah çiz
+        function drawRoute(departureCoords, arrivalCoords) {
+            clearMarkers();
+
+            // Kalkış noktası marker'ı
+            const departureMarker = new google.maps.Marker({
+                position: departureCoords,
+                map: map,
+                title: 'Kalkış Noktası',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            });
+            markers.push(departureMarker);
+
+            // Varış noktası marker'ı
+            const arrivalMarker = new google.maps.Marker({
+                position: arrivalCoords,
+                map: map,
+                title: 'Varış Noktası',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            });
+            markers.push(arrivalMarker);
+
+            // İki nokta arası çizgi
+            flightPath = new google.maps.Polyline({
+                path: [departureCoords, arrivalCoords],
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            flightPath.setMap(map);
+
+            // Haritayı iki noktayı gösterecek şekilde ayarla
+            const bounds = new google.maps.LatLngBounds();
+            bounds.extend(departureCoords);
+            bounds.extend(arrivalCoords);
+            map.fitBounds(bounds);
+        }
+
+        // Sayfa yüklendiğinde haritayı başlat
+        window.onload = initMap;
+
+        // Havalimanı seçimlerini kontrol et ve güncelle
+        function updateAirportSelections() {
+            const departure = document.getElementById('departure');
+            const arrival = document.getElementById('arrival');
+            
+            // Tüm seçenekleri enable et
+            arrival.querySelectorAll('option').forEach(option => {
+                option.disabled = false;
+            });
+            departure.querySelectorAll('option').forEach(option => {
+                option.disabled = false;
+            });
+            
+            // Seçili havalimanını diğer listede disable et
+            if (departure.value) {
+                arrival.querySelector(`option[value="${departure.value}"]`).disabled = true;
+            }
+            if (arrival.value) {
+                departure.querySelector(`option[value="${arrival.value}"]`).disabled = true;
+            }
+
+            // Aynı havalimanı seçilmişse uyarı ver ve seçimi temizle
+            if (departure.value && arrival.value && departure.value === arrival.value) {
+                alert('Kalkış ve varış noktaları aynı olamaz!');
+                arrival.value = '';
+            }
+
+            // Haritayı güncelle
+            updateMap();
+        }
+
+        // Event listener'ları güncelle
+        document.getElementById('departure').addEventListener('change', updateAirportSelections);
+        document.getElementById('arrival').addEventListener('change', updateAirportSelections);
+
+        function updateMap() {
+            const departure = document.getElementById('departure');
+            const arrival = document.getElementById('arrival');
+
+            if (departure.value && arrival.value) {
+                const departureOption = departure.selectedOptions[0];
+                const arrivalOption = arrival.selectedOptions[0];
+
+                const departureCoords = {
+                    lat: parseFloat(departureOption.dataset.lat),
+                    lng: parseFloat(departureOption.dataset.lng)
+                };
+                const arrivalCoords = {
+                    lat: parseFloat(arrivalOption.dataset.lat),
+                    lng: parseFloat(arrivalOption.dataset.lng)
+                };
+
+                drawRoute(departureCoords, arrivalCoords);
+            }
+        }
+
+        document.getElementById('flightForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const departure = document.getElementById('departure').value;
+            const arrival = document.getElementById('arrival').value;
+            
+            // Aynı havalimanı kontrolü
+            if (departure === arrival) {
+                alert('Kalkış ve varış noktaları aynı olamaz!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/assign_crew', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ departure, arrival })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Sonuçları göster
+                    document.getElementById('resultBox').style.display = 'block';
+                    document.getElementById('flightRoute').textContent = result.data.flight;
+                    document.getElementById('planeId').textContent = result.data.plane_id;
+                    document.getElementById('distance').textContent = result.data.distance;
+                    document.getElementById('flightDate').textContent = result.data.departure_time.split('T')[0]; // Tarih
+                    document.getElementById('departureTime').textContent = new Date(result.data.departure_time).toLocaleTimeString(); // Kalkış saati
+                    document.getElementById('arrivalTime').textContent = new Date(result.data.arrival_time).toLocaleTimeString(); // Varış saati   
+                    document.getElementById('flightHours').textContent = result.data.flight_hours;
+                    document.getElementById('fuelConsumption').textContent = result.data.fuel_consumption;
+                    document.getElementById('fuelCost').textContent = result.data.fuel_cost;
+                    
+                    const crewList = document.getElementById('crewList');
+                    crewList.innerHTML = '';
+                    result.data.crew.forEach(member => {
+                        crewList.innerHTML += `
+                            <tr>
+                                <td>${member.crew_id}</td>
+                                <td>${member.name}</td>
+                                <td>${member.role}</td>
+                            </tr>
+                        `;
+                    });
+
+                    // Modal'ı göster
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+
+                } else {
+                    alert('Hata: ' + result.error);
+                }
+            } catch (error) {
+                alert('Bir hata oluştu: ' + error);
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/reset', {
+                    method: 'POST'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Sistem sıfırlama başarılı mesajı
+                    alert('Sistem başarıyla sıfırlandı!');
+                    
+                    // Sonuç kutusunu gizle
+                    document.getElementById('resultBox').style.display = 'none';
+                    
+                    // Form seçimlerini temizle
+                    document.getElementById('departure').value = '';
+                    document.getElementById('arrival').value = '';
+                    
+                    // Haritadaki işaretleri ve çizgileri temizle
+                    clearMarkers();
+                    
+                    // Tüm seçenekleri tekrar aktif et
+                    const departure = document.getElementById('departure');
+                    const arrival = document.getElementById('arrival');
+                    
+                    departure.querySelectorAll('option').forEach(option => {
+                        option.disabled = false;
+                    });
+                    arrival.querySelectorAll('option').forEach(option => {
+                        option.disabled = false;
+                    });
+                    
+                } else {
+                    alert('Hata: ' + result.error);
+                }
+            } catch (error) {
+                alert('Bir hata oluştu: ' + error);
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Flight Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(155deg, #0D1D59, #371269);
+            color: #f4f4f9;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #fdf4f4;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #f4f4f9;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+        .button-group a {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #0F236C;
+            background-color: #fdf4f4;
+            border: 2px solid #0D1D59;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .button-group a:hover {
+            background-color: #0F236C;
+            border-color: #0D1D59;
+	    color: #f4f4f9;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #484854;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Flight Manager</h1>
+        <p>Your journey begins here. Manage flights with ease and efficiency.</p>
+    </header>
+    <div class="button-group">
+        <a href="{{ url_for('login') }}">Giriş Yap</a>
+
+    </div>
+    <footer>
+        &copy; 2024 Flight Manager. All rights reserved.
+    </footer>
+</body>
+</html>

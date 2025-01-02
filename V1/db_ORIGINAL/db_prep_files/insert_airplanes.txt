@@ -1,0 +1,38 @@
+-- 1. Veritabanını kullan
+USE Flight_Schedules;
+GO
+
+-- 2. Airplanes tablosunu oluştur
+CREATE TABLE Airplanes (
+    plane_id NVARCHAR(10) PRIMARY KEY,  -- Kuyruk kodu (ör: TC-XXXX)
+    plane_name NVARCHAR(100),           -- Uçak adı
+    max_monthly_hours INT               -- Maksimum aylık uçuş saati
+    airplane_current_work_hours INT,  -- Mevcut çalışma saati
+    is_available BIT                  -- Uçak mevcut mu?
+);
+GO
+
+-- 3. Verileri tabloya ekle
+INSERT INTO Airplanes (plane_id, plane_name, max_monthly_hours, airplane_current_work_hours, is_available) 
+VALUES
+('TC-3904', 'Sky Falcon', 300, 0, 0),
+('TC-3231', 'Cloud Runner', 300, 0, 0),
+('TC-7203', 'Jetstream', 300, 0, 0),
+('TC-9193', 'Aero Hawk', 300, 0, 0),
+('TC-6096', 'Storm Eagle', 300, 0, 0),
+('TC-4458', 'Nimbus Flyer', 300, 0, 0),
+('TC-2149', 'Thunderbolt', 300, 0, 0),
+('TC-3148', 'Solar Wind', 300, 0, 0),
+('TC-4792', 'Aurora Cruiser', 300, 0, 0),
+('TC-5136', 'Comet Streak', 300, 0, 0),
+('TC-6049', 'Stratos Glider', 300, 0, 0),
+('TC-7285', 'Zephyr Breeze', 300, 0, 0),
+('TC-8392', 'Sky Liner', 300, 0, 0),
+('TC-1824', 'Twilight Arrow', 300, 0, 0),
+('TC-6394', 'Horizon Voyager', 300, 0, 0),
+('TC-9023', 'Celestial Wing', 300, 0, 0),
+('TC-6732', 'Cosmic Trail', 300, 0, 0),
+('TC-5731', 'Stellar Glide', 300, 0, 0),
+('TC-7814', 'Nebula Swift', 300, 0, 0),
+('TC-4950', 'Lunar Dart', 300, 0, 0);
+GO
