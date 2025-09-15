@@ -25,7 +25,7 @@ def login():
     return render_template('login.html')
 
 # FlightCrewManager instance'ını oluştur
-DB_PATH = r"C:\Users\ebrut.LAPTOP-UIMG1LL4\Desktop\V1\V1\dbs_in_use"
+DB_PATH = os.path.join(os.path.dirname(__file__), 'dbs_in_use')
 CREW_DB = f"sqlite:///{os.path.join(DB_PATH, 'crewlist.db')}"
 AIRPLANES_DB = f"sqlite:///{os.path.join(DB_PATH, 'airplanes.db')}"
 manager = FlightCrewManager(CREW_DB, AIRPLANES_DB)

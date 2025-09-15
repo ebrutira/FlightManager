@@ -14,12 +14,16 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Werkzeug sürüm uyumluluğu için düşür
+RUN pip install "werkzeug<3.0"
+
 # dbs_in_use klasörünü ve veritabanlarını kopyala
 COPY dbs_in_use/ /app/dbs_in_use/
 
 # Diğer uygulama kodlarını kopyala
 COPY app.py /app/
 COPY main.py /app/
+COPY google_api_test.py /app/
 COPY templates/ /app/templates/
 
 # Port ayarı
@@ -29,6 +33,7 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
 
 # Uygulamayı çalıştır
 CMD ["python", "app.py"] 

@@ -1,6 +1,12 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-API_KEY = "AIzaSyBvnM1wbt1wbPOUOB8tvpmfDCIyoNmKz2Y"
+# .env dosyasını yükle
+load_dotenv()
+
+# API anahtarını environment variable'dan al
+API_KEY = os.getenv('GOOGLE_API_KEY', 'AIzaSyBvnM1wbt1wbPOUOB8tvpmfDCIyoNmKz2Y')
 
 # Google Places API kullanarak havaalanı koordinatlarını al
 def get_airport_coordinates(airport_name):
