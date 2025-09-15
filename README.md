@@ -47,23 +47,23 @@ Flight Manager, havacılık endüstrisindeki karmaşık operasyonel süreçleri 
 ## 📸 Ekran Görüntüleri
 
 ### 1. Ana Sayfa - Uçuş Planlama
-![Ana Sayfa](screenshots/main.jpg)
+![Ana Sayfa](FlighManager/V1/screenshots/main.jpg)
 *Uçuş planlama ve mürettebat atama ana ekranı*
 
 ### 2. Giriş Ekranı
-![Giriş Ekranı](screenshots/login.jpg)
+![Giriş Ekranı](V1/screenshots/login.jpg)
 *Kullanıcı girişi için güvenli kimlik doğrulama ekranı*
 
 ### 3. Uçuş Planlama Ekranı
-![Uçuş Planlama](screenshots/flight_planning.jpg)
+![Uçuş Planlama](V1/screenshots/flight_planning.jpg)
 *Kalkış ve varış noktaları seçimi ile uçuş planlama arayüzü*
 
 ### 4. Başarılı Atama Sonucu
-![Başarılı Atama](screenshots/success_result.jpg)
+![Başarılı Atama](V1/screenshots/success_result.jpg)
 *Mürettebat ve uçak ataması başarılı sonuç ekranı*
 
 ### 5. Hata Mesajı - 300km Altı Uçuş
-![Hata Mesajı](screenshots/error_300km.jpg)
+![Hata Mesajı](V1/screenshots/error_300km.jpg)
 *300km altındaki uçuşlar için güvenlik uyarı mesajı*
 
 ## 🛠️ Gereksinimler
