@@ -80,7 +80,7 @@ Flight Manager, havacılık endüstrisindeki karmaşık operasyonel süreçleri 
 
 - Python 3.12 veya üzeri
 - Git
-- Google Maps API anahtarı ([Google Cloud Console](https://console.cloud.google.com/)'dan alabilirsiniz)
+- Google Maps API anahtarı [Google Cloud Console](https://console.cloud.google.com/)'dan alabilirsiniz)
 - Docker (opsiyonel)
 
 ### 💻 Yerel Kurulum
@@ -279,6 +279,6 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosy
 
 **⭐ Star this repo if you found it helpful!**
 
-Made with ❤️ by [Ebru Tıraş](https://github.com/ebrutira) & [Sinem Kuru](https://github.com/sinemmkuru) & [Ceren Çokgezer](https://github.com/sinemmkuru)
+Made with ❤️ by [Ebru Tıraş](https://github.com/ebrutira) & [Sinem Kuru](https://github.com/sinemmkuru) & [Ceren Çokgezer](https://github.com/ceren7777)
 
 </div>
