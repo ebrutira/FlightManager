@@ -47,7 +47,7 @@ Flight Manager, havacılık endüstrisindeki karmaşık operasyonel süreçleri 
 ## 📸 Ekran Görüntüleri
 
 ### 1. Ana Sayfa - Uçuş Planlama
-![Ana Sayfa](FlighManager/V1/screenshots/main.jpg)
+![Ana Sayfa](V1/screenshots/main.jpg)
 *Uçuş planlama ve mürettebat atama ana ekranı*
 
 ### 2. Giriş Ekranı
