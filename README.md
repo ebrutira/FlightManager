@@ -51,7 +51,7 @@ Flight Manager, havacılık endüstrisindeki karmaşık operasyonel süreçleri 
 *Uçuş planlama ve mürettebat atama ana ekranı*
 
 ### 2. Giriş Ekranı
-![Giriş Ekranı](screenshots/login.png)
+![Giriş Ekranı](screenshots/login.jpg)
 *Kullanıcı girişi için güvenli kimlik doğrulama ekranı*
 
 ### 3. Uçuş Planlama Ekranı
@@ -59,7 +59,7 @@ Flight Manager, havacılık endüstrisindeki karmaşık operasyonel süreçleri 
 *Kalkış ve varış noktaları seçimi ile uçuş planlama arayüzü*
 
 ### 4. Başarılı Atama Sonucu
-![Başarılı Atama](screenshots/success_result.png)
+![Başarılı Atama](screenshots/success_result.jpg)
 *Mürettebat ve uçak ataması başarılı sonuç ekranı*
 
 ### 5. Hata Mesajı - 300km Altı Uçuş
